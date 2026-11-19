@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Optical Transfer</title>
+<meta name="description" content="Move files between devices with nothing but a camera and a screen: animated QR codes, RaptorQ fountain coding, no network.">
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1d1f21;
+    --muted: #5a5f66;
+    --border: #e3e5e8;
+    --accent: #2563eb;
+    --code-bg: #f3f4f6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a;
+      --text: #e7e9ea;
+      --muted: #9aa0a6;
+      --border: #2a2d31;
+      --accent: #6ea8fe;
+      --code-bg: #1d2024;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 16px 64px;
+  }
+  .notice {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 28px;
+    font-size: 14px;
+    color: var(--muted);
+    background: var(--code-bg);
+  }
+  .notice a { color: var(--accent); }
+  h1 { font-size: 1.9rem; margin: 0 0 4px; }
+  h2 { font-size: 1.25rem; margin-top: 2em; }
+  p { margin: 0.9em 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  ul { padding-left: 1.3em; }
+  li { margin: 0.4em 0; }
+  code {
+    background: var(--code-bg);
+    padding: 0.15em 0.4em;
+    border-radius: 5px;
+    font-size: 0.9em;
+  }
+  .excerpt { color: var(--muted); font-size: 1.05rem; margin-top: 0.4em; }
+  .links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 1.4em 0 1.8em;
+  }
+  .links a {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-weight: 600;
+  }
+  .links a:hover { border-color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="notice">
+    Temporary mirror of this portfolio project while the main site's GitHub Actions is blocked by a billing issue.
+    Permanent page: <a href="https://overfero.github.io/optical-transfer/">overfero.github.io/optical-transfer</a>.
+  </div>
+
+  <h1>Optical Transfer</h1>
+  <p class="excerpt">Move files between devices with nothing but a camera and a screen: animated QR codes, RaptorQ fountain coding, no network.</p>
+
+  <div class="links">
+    <a href="https://kriscris.github.io/optical-transfer/">Live Demo</a>
+    <a href="https://github.com/KrisCris/optical-transfer">GitHub Repository</a>
+  </div>
+
+  <p>Move photos, files, or text between devices with nothing between them but a camera and a screen. No network, no pairing, no account. The sender plays the payload as an endless stream of animated QR codes; the receiving device points its camera at it and rebuilds the file.</p>
+
+  <p><strong>Try it in a browser:</strong> <a href="https://kriscris.github.io/optical-transfer/">kriscris.github.io/optical-transfer</a>. Open it on both devices, choose <em>Send</em> on one and <em>Receive</em> on the other. It installs to the home screen and then works with no network at all. Native desktop apps for Windows, macOS and Linux (x86-64 and arm64) are built by CI on every push.</p>
+
+  <p>It speaks its own wire format, v4: RaptorQ fountain coding behind a 16-byte frame header, files up to 128 MiB, and optional colour codes that carry three QR codes in one. Every receiver also reads wire v3, the format of <a href="https://github.com/bashalarmistalt/decimen-optical-transfer">Decimen Optical Transfer</a>.</p>
+
+  <h2>Features</h2>
+  <ul>
+    <li><strong>No Network Required</strong> &mdash; Transfer happens entirely through a camera reading a screen; no Wi-Fi, Bluetooth, pairing, or account needed.</li>
+    <li><strong>RaptorQ Fountain Coding</strong> &mdash; Wire format v4 uses RaptorQ fountain coding behind a 16-byte frame header, supporting files up to 128 MiB.</li>
+    <li><strong>Colour QR Codes</strong> &mdash; An optional mode packs three QR codes into the red, green, and blue channels of a single code for higher throughput.</li>
+    <li><strong>Backward Compatible</strong> &mdash; Every receiver can also read wire v3, interoperating with Decimen Optical Transfer.</li>
+    <li><strong>Cross-Platform</strong> &mdash; Works as an offline-installable PWA in the browser, plus native desktop apps for Windows, macOS, and Linux on x86-64 and arm64.</li>
+    <li><strong>Double-Verified Integrity</strong> &mdash; Nothing is shown to the user until two independent checks agree: the frame header's FNV-1a over the assembled container, and the container's own SHA-256 over the file inside it.</li>
+    <li><strong>Speed Presets</strong> &mdash; Five presets (Reliable, Balanced, Fast, Colour, Max) trade code density and frame rate for throughput, up to roughly 344 KiB/s on the wire.</li>
+    <li><strong>Stateless Wire Protocol</strong> &mdash; No handshake, no back channel &mdash; a receiver can lock onto a stream mid-transfer and rebuild the file from wherever it started.</li>
+  </ul>
+
+  <h2>Repository</h2>
+  <ul>
+    <li><a href="https://github.com/KrisCris/optical-transfer">github.com/KrisCris/optical-transfer</a></li>
+  </ul>
+
+  <h2>Live Demo</h2>
+  <ul>
+    <li><a href="https://kriscris.github.io/optical-transfer/">kriscris.github.io/optical-transfer</a></li>
+  </ul>
+</div>
+</body>
+</html>
