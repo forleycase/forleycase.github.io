@@ -1,0 +1,16 @@
+{
+  "name": "optical-wasm",
+  "type": "module",
+  "version": "0.1.0",
+  "license": "AGPL-3.0-or-later",
+  "files": [
+    "optical_wasm_bg.wasm",
+    "optical_wasm.js",
+    "optical_wasm.d.ts"
+  ],
+  "main": "optical_wasm.js",
+  "types": "optical_wasm.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
